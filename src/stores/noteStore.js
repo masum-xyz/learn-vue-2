@@ -6,10 +6,11 @@ export const useNoteStore = defineStore('note', {
     }),
 
     actions: {
-        tambahNote(teks) {
+        tambahNote(title, content) {
             this.notes.push({
                 id: Date.now(),
-                teks,
+                title,
+                content
             })
             this.simpanNotes();
         },
@@ -21,6 +22,15 @@ export const useNoteStore = defineStore('note', {
 
         simpanNotes() {
             localStorage.setItem('notes', JSON.stringify(this.notes));
+        },
+
+        updateNote(id, title, content) {
+            const note = this.notes.find(note => note.id === id);
+            if (note) {
+                note.title = title;
+                note.content = content;
+                this.simpanNotes();
+            }
         }
     }
 })

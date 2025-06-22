@@ -1,6 +1,8 @@
 <script setup>
     import { useRoute, useRouter } from 'vue-router'
     import { useNoteStore } from '../stores/noteStore'
+    import ConfirmationDialog from "../components/ConfirmationDialog.vue";
+    import { ref } from 'vue'
 
     const route = useRoute()
     const router = useRouter()
@@ -8,9 +10,19 @@
 
     const noteId = Number(route.params.id)
     const note = store.notes.find(n => n.id === noteId)
+    const showDeleteDialog = ref(false)
 
     function goBack() {
       router.push({ name: 'home' })
+    }
+
+    function confirmDelete() {
+      store.hapusNote(note.id)
+      goBack();
+      showDeleteDialog.value = false;
+    }
+    function showConfirmation() {
+      showDeleteDialog.value = true;
     }
     </script>
 
@@ -34,7 +46,7 @@
             <RouterLink :to="{ name: 'note-edit', params: { id: note.id }}" class="edit-button">
               Edit Catatan
             </RouterLink>
-            <button @click="store.hapusNote(note.id); goBack()" class="delete-button">
+            <button @click="showConfirmation" class="delete-button">
               Hapus Catatan
             </button>
           </div>
@@ -47,6 +59,15 @@
             Kembali ke Beranda
           </button>
         </div>
+
+        <ConfirmationDialog
+            v-if="showDeleteDialog"
+            @confirm="confirmDelete"
+            @cancel="showDeleteDialog = false"
+            title="Konfirmasi Hapus"
+            message="Apakah Anda yakin ingin menghapus catatan ini?"
+            confirmButtonText="Hapus"
+        />
       </div>
     </template>
 

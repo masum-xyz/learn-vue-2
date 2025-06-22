@@ -118,8 +118,12 @@ function closeModal() {
 }
 
 @keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 .modal-container {
@@ -132,8 +136,14 @@ function closeModal() {
 }
 
 @keyframes slideIn {
-  from { transform: translateY(-30px); opacity: 0; }
-  to { transform: translateY(0); opacity: 1; }
+  from {
+    transform: translateY(-30px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
 }
 
 .modal-header {
@@ -252,8 +262,8 @@ function closeModal() {
 }
 
 .note-input, .note-textarea {
-  width: 100%;
-  padding: 12px;
+  width: 92%;
+  padding: 12px 16px;
   margin-bottom: 12px;
   border: 1px solid #ddd;
   border-radius: 4px;
